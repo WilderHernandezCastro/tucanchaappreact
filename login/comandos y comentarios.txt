@@ -1,0 +1,27 @@
+npm run dev
+
+npm init -y
+npm i express bcryptjs cors dotenv jsonwebtoken mongoose morgan helmet
+npm i @babel/core @babel/cli @babel/node @babel/preset-env nodemon -D
+mkdir controllers libs middlewares models routes
+
+
+
+
+
+controller: funciones que van a manejar cada vez que un usuario visite una url.
+libs: codigo a reutilizar.
+middlewares: fuciones que se ejecutan cada vez que un usuario visita una ruta.
+models: modelo de datos.
+routes: url que va a tener disponible el servidor.
+
+
+
+
+
+
+
+
+
+
+

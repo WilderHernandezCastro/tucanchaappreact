@@ -1,0 +1,44 @@
+import {Schema, model} from 'mongoose' //
+import bcrypt from 'bcryptjs'
+
+const userSchema = new Schema(
+    {
+    username:{
+        type: String,
+        unique: true
+    },
+    email:{
+        type: String,
+        unique: true
+    },
+    password:{
+        type: String,
+        required: true
+    },
+    roles:[
+        {
+        //con esto buscamos relaciones los roles con los usuarios, un usuario puede tener multiples roles.
+        ref: "Role",//Role viene del archivo models - Role.js es el nombre que le dejamos.
+        type: Schema.Types.ObjectId //tipo de dato que voy a guardar va a ser un objectId
+        },
+    ],
+    },
+    {
+    timestamps: true,
+    versionKey: false
+    }
+);
+
+//metodo para cifrar password, que se enviara a auth.controller.js
+//ambos metodos de usaran en auth.controller.js en el atributo password
+productSchema.static.encryptPassword = async (password)=>{
+    const salt = await bcrypt.genSalt(10) // tomo la contraseña sin cifrar
+    return await bcrypt.hash(password, salt) //se entrega la contraseña cifrada
+}
+
+productSchema.static.comparePassword = async (password, receivedPassword)=>{
+    return await bcrypt.compare(password, receivedPassword) //devuelve un booleano
+}
+
+
+export default model('User', userSchema);
